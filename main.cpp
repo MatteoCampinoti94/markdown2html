@@ -1,47 +1,43 @@
 #include <fstream>
-#include <iostream>
 #include "toHTML.h"
 
 
 void options (int ac, char* av[], char& p_align, char& i_align, std::string& title, char& title_display);
 void align (char& p, const string option);
-bool check_file (std::string name)
+bool check_file (std::string name);
 
 
 int main(int argc, char* argv[])
 {
-  if (argc<=1) { exit(1); }
-  if (!check_file(string(argv[1]))) { exit(2); }
+  if (argc<=1) { printf("No file selected\n"); exit(1); }
+  if (!check_file(argv[1])) { printf("File does not exist\n"); exit(2); }
 
   std::ifstream ifile(argv[1]);
-  char align=0, align_image=0, title_display=0;;
-  std::string title="";
+  char align=0, align_image=0;
+  std::string title=""; char title_display=0;
 
   options(argc, argv, align, align_image, title, title_display);
 
-  std::cout << "<html>\n";
+  printf("<html>\n");
 
-  std::cout <<
-    "<head>\n"
-    "<title>" << title << "</title>\n"
-    "</head>\n\n";
+  printf("<head>\n<title>%s</title>\n</head>\n\n", title.c_str());
 
-  std::cout << "<body>\n";
+  printf("<body>\n");
 
   if (title!="")
   {
     switch (title_display)
     {
-      case 'l' : std::cout << "<h1 align=\"left\">" << title << "</h1>\n<br>\n\n"; break;
-      case 'r' : std::cout << "<h1 align=\"right\">" << title << "</h1>\n<br>\n\n"; break;
-      case 'c' : std::cout << "<h1 align=\"center\">" << title << "</h1>\n<br>\n\n"; break;
-      case 'j' : std::cout << "<h1 align=\"justify\">" << title << "</h1>\n<br>\n\n"; break;
+      case 'l' : printf("<h1 align=\"left\">%s</h1>\n<br>\n\n", title.c_str()); break;
+      case 'r' : printf("<h1 align=\"right\">%s</h1>\n<br>\n\n", title.c_str()); break;
+      case 'c' : printf("<h1 align=\"center\">%s</h1>\n<br>\n\n", title.c_str()); break;
+      case 'j' : printf("<h1 align=\"justify\">%s</h1>\n<br>\n\n", title.c_str()); break;
       default : std::cout << "<h1>" << title << "</h1>\n\n"; break;
     }
   }
 
   toHTML(ifile, std::cout, true, align, align_image);
-  std::cout << "</body>\n</html>\n";
+  printf("</body>\n</html>\n");
 
   ifile.close();
 
@@ -60,7 +56,7 @@ bool check_file (std::string name)
 
 void align (char& p, const string option)
 {
-       if (option=="left") { p='l'; }
+  if (option=="left") { p='l'; }
   else if (option=="right") { p='r'; }
   else if (option=="center") { p='c'; }
   else if (option=="justify") { p='j'; }
