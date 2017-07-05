@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
       case 'r' : printf("<h1 align=\"right\">%s</h1>\n<br>\n\n", title.c_str()); break;
       case 'c' : printf("<h1 align=\"center\">%s</h1>\n<br>\n\n", title.c_str()); break;
       case 'j' : printf("<h1 align=\"justify\">%s</h1>\n<br>\n\n", title.c_str()); break;
-      default : std::cout << "<h1>" << title << "</h1>\n\n"; break;
+      default  : printf("<h1>%s</h1>\n\n", title.c_str()); break;
     }
   }
 
