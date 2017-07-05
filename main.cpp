@@ -2,7 +2,7 @@
 #include "toHTML.h"
 
 
-void options (int ac, char* av[], char& p_align, char& i_align, std::string& title, char& title_display);
+void options (int argc, char* argv[], char& p_align, char& i_align, std::string& title, char& title_display);
 void align (char& p, const string option);
 bool check_file (std::string name);
 
@@ -62,40 +62,40 @@ void align (char& p, const string option)
   else if (option=="justify") { p='j'; }
 }
 
-void options (int ac, char* av[], char& p_align, char& i_align, std::string& title, char& title_display)
+void options (int argc, char* argv[], char& p_align, char& i_align, std::string& title, char& title_display)
 {
   std::string op;
 
-  if (ac>2)
+  if (argc>2)
   {
     bool align_b=0;
     bool align_image_b=0;
     bool title_b=0;
 
-    for (int i=2; i<ac; i++)
+    for (int i=2; i<argc; i++)
     {
-      op=av[i];
+      op=argv[i];
 
-      if (op=="text" && align_b==0 && i<ac-1)
+      if (op=="text" && align_b==0 && i<argc-1)
       {
-        align(p_align, string(av[i+1]));
+        align(p_align, string(argv[i+1]));
         align_b=1;
         i+=1;
       }
-      else if (op=="image" && align_image_b==0 && i<ac-1)
+      else if (op=="image" && align_image_b==0 && i<argc-1)
       {
-        align(i_align, string(av[i+1]));
+        align(i_align, string(argv[i+1]));
         align_image_b=1;
         i+=1;
       }
-      else if (op=="title" && title_b==0 && i<ac-1)
+      else if (op=="title" && title_b==0 && i<argc-1)
       {
-        title=av[i+1]; i+=1;
+        title=argv[i+1]; i+=1;
 
-        if ((title=="display" || title=="display-left"|| title=="display-center"|| title=="display-right" || title=="display-justify") && i<ac-1)
+        if ((title=="display" || title=="display-left"|| title=="display-center"|| title=="display-right" || title=="display-justify") && i<argc-1)
         {
           title_display=title[8];
-          title=av[i+1];
+          title=argv[i+1];
           i+=1;
         }
 
