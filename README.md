@@ -39,4 +39,4 @@ The options can be given in any order but their specific command must follow the
 --- horizontal bar
 ```
 
-The program will also treat any newline as actual breaklines (if single '\n') or pargraph ends (if double '\n\n')
+The program will also treat any newline as actual breaklines (if single '\n') or paragraph ends (if double '\n\n')
