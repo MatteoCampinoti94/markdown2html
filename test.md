@@ -17,6 +17,36 @@ ___Hello world!___
 ~~*Hello world!*~~
 **Hello ~~~world!~~**
 
+#
+
+####
+
+####  
+# heading 1
+## heading 2
+### heading 3
+#### heading 4
+##### heading 5
+###### heading 6
+####### no heading
+
+
+
+#1
+
+##2
+
+###3
+
+####4
+
+#####5
+
+######6
+
+#######7
+
+
 ciao---
 
 -sono

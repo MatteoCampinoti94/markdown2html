@@ -62,11 +62,11 @@ void hbar (char& c, istream& ifile, ostream& out, std::string& prg, bool& pr)
   {
     ifile.get(c);
     char aft=ifile.peek();
-    
+
     if (c==aft)
     {
       ifile.get(c);
-      
+
       if (ifile.peek()=='\n') { out << "<hr>\n"; }
       else { out << prg << "---"; pr=1; }
     }
@@ -79,7 +79,7 @@ void breakline (char& c, bool& pr, istream& ifile, ostream& out)
 {
   char prev=c;
   c=ifile.peek();
-  
+
   if (c!=EOF)
   {
     if (prev==c && pr) { ifile.get(c); out << "</p>\n\n"; pr=0; }
@@ -95,36 +95,13 @@ void newl (std::istream& ifile, std::ostream& out)
   {
     char c;
     ifile.get(c);
-    
+
     if (ifile.peek()=='\n') { ifile.get(c); out << "\n\n"; }
     else { out << "<br>\n"; }
   }
 }
 
-
-void clean_src (string& src)
-{
-  unsigned l, b;
-  string tmp="";
-
-  for (unsigned i=src.length()-1; i>=0; i--)
-  { 
-    if (src[i]!=' ') { l=i; break; }
-  }
-
-  for (unsigned i=0; i<=l; i++)
-  { 
-    if (src[i]!=' ') { b=i; break; }
-  }
-
-  for (unsigned i=b; i<=l; i++)
-  {
-    if (src[i]==' ') { tmp+="%20"; }
-    else { tmp+=src[i]; }
-  }
-  
-  src=tmp;
-}
+void clean_src (string& src);
 
 bool image (char& c, istream& ifile, ostream& out)
 {
@@ -134,16 +111,16 @@ bool image (char& c, istream& ifile, ostream& out)
   if (c=='[')
   {
     out << "<img ";
-    
+
     ifile.get(c);
     string src="";
     char alt[256], title[256];
-    
+
     ifile.get(alt, 256, ']');
     ifile.get(c);
-    
+
     while (c!='(' && c!=EOF) { ifile.get(c); }
-    
+
     while (c!=')' && c!='"' && c!=EOF)
     {
       ifile.get(c);
@@ -151,7 +128,7 @@ bool image (char& c, istream& ifile, ostream& out)
       c=ifile.peek();
     }
     ifile.get(c);
-    
+
     if (c=='"')
     {
       c=ifile.peek();
@@ -159,11 +136,11 @@ bool image (char& c, istream& ifile, ostream& out)
       ifile.get(c);
     }
     while (c!=')' && c!=EOF) { ifile.get(c); }
-    
+
     clean_src(src);
-    
+
     out << "src=\"" << src << "\" alt=\"" << alt << "\" title=\"" << title << "\" />";
-    
+
     return true;
   }
   else { out << prev; return false; }
@@ -193,10 +170,89 @@ void url (char& c, istream& ifile, ostream& out)
   while (c!=')' && c!=EOF) { ifile.get(c); }
 
   istringstream iss_text(text);
-  ostringstream oss_text; 
+  ostringstream oss_text;
 
   toHTML(iss_text, oss_text, false);
   clean_src(href);
 
   out << "<a href=\"" << href << "\" title=\"" << title << "\">" << oss_text.str() << "</a>";
+}
+
+void str_pop (string& s, unsigned i);
+bool legit_head (string& s, int& head);
+
+void heading (istream& ifile, ostream& out, const char& align, bool& pr, const string& prg)
+{
+  string line; getline(ifile, line);
+  int head;
+
+  if (!legit_head(line, head))
+  {
+    out << prg << '#' << line;
+    if (ifile.peek()=='\n') { char c; ifile.get(c); out << "</p>\n"; }
+    else { out << "<br>\n"; pr=1; }
+    return;
+  }
+
+  out << "<h" << head;
+  switch (align)
+  {
+    case 'l' : out << " align=\"left\">";
+    case 'r' : out << " align=\"right\">";
+    case 'c' : out << " align=\"center\">";
+    case 'j' : out << " align=\"justify\">";
+    default : out << ">";
+  }
+
+  str_pop(line, head);
+  out << line << "</h" << head << ">\n\n";
+}
+
+
+void clean_src (string& src)
+{
+  unsigned l, b;
+  string tmp="";
+
+  for (unsigned i=src.length()-1; i>=0; i--)
+  {
+    if (src[i]!=' ') { l=i; break; }
+  }
+
+  for (unsigned i=0; i<=l; i++)
+  {
+    if (src[i]!=' ') { b=i; break; }
+  }
+
+  for (unsigned i=b; i<=l; i++)
+  {
+    if (src[i]==' ') { tmp+="%20"; }
+    else { tmp+=src[i]; }
+  }
+
+  src=tmp;
+}
+
+void str_pop (string& s, unsigned i)
+{
+  string ret="";
+  for (unsigned j=i; j<s.length(); j++) { ret+=s[j]; }
+  s=ret;
+}
+
+bool legit_head (string& s, int& head)
+{
+  head=1;
+  bool inhead=1;
+
+  for (unsigned i=0; i<s.length(); i++)
+  {
+    if (s[i]=='#' && inhead==1) { head++; }
+    else if (head>6) { return false; }
+    else if (s[i]==' ' && inhead==1) { inhead=0; }
+    else if (s[i]!='#' && inhead==1) { return false; }
+    else if (inhead==0) { return true; }
+  }
+
+  return false;
 }

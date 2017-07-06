@@ -14,3 +14,5 @@ void newl (std::istream& ifile, std::ostream& out);
 
 bool image (char& c, istream& ifile, ostream& out);
 void url (char& c, istream& ifile, ostream& out);
+
+void heading (istream& ifile, ostream& out, const char& align, bool& pr, const string& prg);

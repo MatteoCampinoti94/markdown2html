@@ -38,41 +38,47 @@ void toHTML (istream& ifile, ostream& out, const bool& pr_on, char align, char a
         if (!pr && pr_on) { out << prg; pr=1; }
         bold_italic(c, bd, it, ifile, out);
       } break;
-      
+
       case '~' :
       {
         if (!pr && pr_on) { out << prg; pr=1; }
         strike(c, st, ifile, out);
       } break;
-      
+
       case '`' :
       {
         if (!pr && pr_on) { out << prg; pr=1; }
         to_code(cd, out);
       } break;
-      
+
       case '-' :
-      { 
+      {
         if (!pr) { hbar(c, ifile, out, prg, pr); }
         else { out << c; }
       }break;
-      
+
       case '\n' : { breakline(c, pr, ifile, out); } break;
-      
+
       case '!' :
-      { 
+      {
         if (!pr && pr_on) { out << prgi; }
         if (!image(c, ifile, out)) { break; }
         if (!pr && pr_on) { out << "</p>"; newl(ifile, out); }
       } break;
-      
+
       case '[' :
-      { 
+      {
         if (!pr && pr_on) { out << prg; }
         url(c, ifile, out);
         if (!pr && pr_on) { out << "</p>"; newl(ifile, out); }
       } break;
-     
+
+      case '#' :
+      {
+        if (!pr && pr_on) { heading(ifile, out, align, pr, prg); }
+        else { out << c; }
+      } break;
+
       default :
       {
         if (!pr && pr_on) { out << prg; pr=1; }

@@ -45,6 +45,7 @@ int main(int argc, char* argv[])
 }
 
 
+
 bool check_file (std::string name)
 {
   std::ifstream file(name.c_str());
@@ -52,7 +53,6 @@ bool check_file (std::string name)
   if (file.fail()) { return false; }
   else { file.close(); return true; }
 }
-
 
 void align (char& p, const string option)
 {
