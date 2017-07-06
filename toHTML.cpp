@@ -14,7 +14,7 @@ std::string par (const char& al)
   }
 }
 
-void toHTML (istream& ifile, ostream& out, const bool& pr_on, char align, char align_image)
+void toHTML (istream& ifile, const bool& pr_on, char align, char align_image)
 {
   char c;
   bool bd=0;
@@ -25,7 +25,7 @@ void toHTML (istream& ifile, ostream& out, const bool& pr_on, char align, char a
   string prg=par(align);
   string prgi=par(align_image);
 
-  if (pr_on) { out << prg; }
+  if (pr_on) { printf("%s", prg.c_str()); }
 
   while (ifile.get(c))
   {
@@ -34,57 +34,60 @@ void toHTML (istream& ifile, ostream& out, const bool& pr_on, char align, char a
       case '*' :
       case '_' :
       {
-        if (!pr && pr_on) { out << prg; pr=1; }
-        bold_italic(c, bd, it, ifile, out);
+        if (!pr && pr_on) { printf("%s", prg.c_str()); pr=1; }
+        bold_italic(c, bd, it, ifile);
       } break;
 
       case '~' :
       {
-        if (!pr && pr_on) { out << prg; pr=1; }
-        strike(c, st, ifile, out);
+        if (!pr && pr_on) { printf("%s", prg.c_str()); pr=1; }
+        strike(c, st, ifile);
       } break;
 
       case '`' :
       {
-        if (!pr && pr_on) { out << prg; pr=1; }
-        to_code(cd, out);
+        if (!pr && pr_on) { printf("%s", prg.c_str()); pr=1; }
+        to_code(cd);
       } break;
 
       case '-' :
       {
-        if (!pr) { hbar(c, ifile, out, prg, pr); }
-        else { out << c; }
-      }break;
+        if (!pr) { hbar(c, ifile, prg, pr); }
+        else { printf("%c", c);; }
+      } break;
 
-      case '\n' : { breakline(c, pr, ifile, out); } break;
+      case '\n' :
+      {
+        breakline(c, pr, ifile);
+      } break;
 
       case '!' :
       {
-        if (!pr && pr_on) { out << prgi; }
-        if (!image(c, ifile, out)) { break; }
-        if (!pr && pr_on) { out << "</p>"; newl(ifile, out); }
+        if (!pr && pr_on) { printf("%s", prgi.c_str()); }
+        if (!image(c, ifile)) { break; }
+        if (!pr && pr_on) { printf("</p>"); newl(ifile); }
       } break;
 
       case '[' :
       {
-        if (!pr && pr_on) { out << prg; }
-        url(c, ifile, out);
-        if (!pr && pr_on) { out << "</p>"; newl(ifile, out); }
+        if (!pr && pr_on) { printf("%s", prg.c_str()); }
+        url(c, ifile);
+        if (!pr && pr_on) { printf("</p>"); newl(ifile); }
       } break;
 
       case '#' :
       {
-        if (!pr && pr_on) { heading(ifile, out, align, pr, prg); }
-        else { out << c; }
+        if (!pr && pr_on) { heading(ifile, align, pr, prg); }
+        else { printf("%c", c);; }
       } break;
 
       default :
       {
-        if (!pr && pr_on) { out << prg; pr=1; }
-        out << c;
+        if (!pr && pr_on) { printf("%s", prg.c_str()); pr=1; }
+        printf("%c", c);;
       }
     }
   }
 
-  if (pr && pr_on) { out << "</p>\n"; }
+  if (pr && pr_on) { printf("</p>\n"); }
 }

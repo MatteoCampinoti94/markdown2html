@@ -36,14 +36,13 @@ int main(int argc, char* argv[])
     }
   }
 
-  toHTML(ifile, std::cout, true, align, align_image);
+  toHTML(ifile, true, align, align_image);
   printf("</body>\n</html>\n");
 
   ifile.close();
 
   return 0;
 }
-
 
 
 bool check_file (std::string name)
