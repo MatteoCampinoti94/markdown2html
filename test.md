@@ -1,64 +1,38 @@
-*Hello world!*
-_Hello world!_
+*This is italic* | _This is italic_
 
-**Hello world!**
-__Hello World!__
+**This is bold** | __This is bold__
 
-**_Hello_ world!**
-__*Hello* World!__
+**_This_ is mixed** | __*This* is mixed__
 
-**Hello _world_!**
-__Hello *world*!__
+**This is _also mixed_** | __This is *also mixed*__
 
-***Hello world!***
-___Hello world!___
+***Bold and italic*** | ___Bold and italic___
 
-~~Hello world!~~
-~~*Hello world!*~~
-**Hello ~~~world!~~**
+~~Strikethrough~~ | ~~*Italic strikethrough*~~ | **Bold ~~strikethrough~~**
 
-#
 
-####
-
-####  
 # heading 1
 ## heading 2
 ### heading 3
 #### heading 4
 ##### heading 5
 ###### heading 6
-####### no heading
+####### heading 7 (no heading)
 
+###no heading without space after last #
 
+`printf("This is code\n");`
 
-#1
+Tests---
 
-##2
+-for
 
-###3
+--horizontal
 
-####4
-
-#####5
-
-######6
-
-#######7
-
-
-ciao---
-
--sono
-
---stanco
-
----molto
+---bar
 
 ---
 
-![Hello world]( ./hi.jpg "World")
+![markdown]( https://upload.wikimedia.org/wikipedia/commons/4/48/Markdown-mark.svg "markdown")
 
-`cout << "This is code\n";`
-
-[*text*]( ./hi.jpg "title")
+[*markdown*]( https://en.wikipedia.org/wiki/Markdown "markdown on wikipedia")
