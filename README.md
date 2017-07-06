@@ -26,17 +26,23 @@ The options can be given in any order but their specific command must follow the
 
 ```markdown
 **bold** __bold__
-
 *italic* _italic_
-
 ~~strikethrough~~
+**_~~mixed~~_**
+
+# heading 1
+## heading 2
+### heading 3
+#### heading 4
+##### heading 5
+###### heading 6
 
 `code`
 
+--- horizontal bar
+
 [link](url)
 ![image](url)
-
---- horizontal bar
 ```
 
 The program will also treat any newline as actual breaklines (if single '\n') or paragraph ends (if double '\n\n')
