@@ -1,5 +1,4 @@
 #include "toHTML.h"
-
 #include "functions.h"
 
 std::string par (const char& al)
