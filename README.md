@@ -37,6 +37,8 @@ The options can be given in any order but their specific command must follow the
 ##### heading 5
 ###### heading 6
 
+# *formatted headings*
+
 `code`
 
 --- horizontal bar

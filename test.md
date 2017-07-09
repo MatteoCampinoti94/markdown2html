@@ -11,9 +11,9 @@
 ~~Strikethrough~~ | ~~*Italic strikethrough*~~ | **Bold ~~strikethrough~~**
 
 
-# heading 1
-## heading 2
-### heading 3
+# *heading 1*
+## ~~heading 2~~
+### ~~_heading 3_~~
 #### heading 4
 ##### heading 5
 ###### heading 6
@@ -33,6 +33,6 @@ Tests---
 
 ---
 
-![markdown]( https://upload.wikimedia.org/wikipedia/commons/4/48/Markdown-mark.svg "markdown")
-
 [*markdown*]( https://en.wikipedia.org/wiki/Markdown "markdown on wikipedia")
+
+![markdown]( https://upload.wikimedia.org/wikipedia/commons/4/48/Markdown-mark.svg "markdown")

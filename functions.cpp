@@ -199,7 +199,10 @@ void heading (istream& ifile, const char& align, bool& pr, const string& prg)
   }
 
   str_pop(line, head);
-  printf("%s</h%u>\n\n", line.c_str(), head);
+  istringstream iss(line);
+  toHTML(iss, false);
+
+  printf("</h%u>\n\n", head);
 }
 
 
