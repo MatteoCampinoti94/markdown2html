@@ -135,7 +135,7 @@ bool image (char& c, istream& ifile)
 
     clean_src(src);
 
-    printf("<img src=\"%s\" alt=\"%s\" title=\"%s\" />", src.c_str(), alt, title);
+    printf("<img src=\"%s\" style="width:100%; height:auto; margin:0 auto;" alt=\"%s\" title=\"%s\" />", src.c_str(), alt, title);
 
     return true;
   }
